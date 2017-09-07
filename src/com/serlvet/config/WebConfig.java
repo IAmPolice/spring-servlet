@@ -15,7 +15,7 @@ import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 
 @Configuration
 @EnableWebMvc
-//@ComponentScan("spittr.web")
+@ComponentScan("com.serlvet.controller")
 public class WebConfig extends WebMvcConfigurerAdapter {
 //    @Bean
 //    public ViewResolver viewResolver(SpringTemplateEngine templateEngine) {
@@ -39,10 +39,10 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 //      templateResolver.setTemplateMode("HTML5");
 //      return templateResolver;
 //    }
-    @Override
-    public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
-      configurer.enable();
-    }
+//    @Override
+//    public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
+//      configurer.enable();
+//    }
 
 //    @Override
 //    public void addViewControllers(ViewControllerRegistry registry) {
