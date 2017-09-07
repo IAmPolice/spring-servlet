@@ -14,11 +14,8 @@ import com.serlvet.db.mongo.repository.UserRepository;
 @Controller
 @RequestMapping("/register")
 public class RegisterUser {
-    MongoOperations mongoOps;
     @Autowired
-    public RegisterUser(MongoOperations mongoOps) {
-        this.mongoOps = mongoOps;
-    }
+    MongoOperations mongoOps;
 //    UserRepository userRepository;
 //    @Autowired
 //    public RegisterUser(UserRepository userRepository) {

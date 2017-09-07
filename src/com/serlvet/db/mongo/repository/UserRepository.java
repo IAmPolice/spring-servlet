@@ -8,6 +8,6 @@ import com.serlvet.db.mongo.collection.UserInfo;
 
 @Repository
 public interface UserRepository extends MongoRepository<UserInfo, String> {
-//    @Query("{username: ?0}")
-//    UserInfo findByUsername(String username);
+    @Query("{username: ?0}")
+    UserInfo findByUsername(String username);
 }
