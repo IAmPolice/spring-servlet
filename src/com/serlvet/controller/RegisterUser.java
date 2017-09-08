@@ -1,6 +1,7 @@
 package com.serlvet.controller;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoOperations;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.serlvet.controller.reqdata.ReqUser;
 import com.serlvet.db.mongo.collection.UserInfo;
 import com.serlvet.db.mongo.repository.UserRepository;
 
@@ -24,8 +26,13 @@ public class RegisterUser {
     //UserRepository userRepository;
     
     @RequestMapping(method = GET)
-    public String registerUser(Model model) {
-        mongoOps.save(new UserInfo("stone1", "123456"));
+    public String getPage(Model model) {
+        return "register";
+    }
+
+    @RequestMapping(method = POST)
+    public String registerUser(ReqUser reqUser, Model model) {
+        mongoOps.save(new UserInfo(reqUser));
         System.out.println("register");
         return "redirect:/login";
     }
