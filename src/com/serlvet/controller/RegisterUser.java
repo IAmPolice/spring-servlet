@@ -24,8 +24,9 @@ public class RegisterUser {
     //UserRepository userRepository;
     
     @RequestMapping(method = GET)
-    public String home(Model model) {
+    public String registerUser(Model model) {
         mongoOps.save(new UserInfo("stone1", "123456"));
+        System.out.println("register");
         return "redirect:/login";
     }
 

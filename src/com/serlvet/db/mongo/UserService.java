@@ -1,47 +1,35 @@
 package com.serlvet.db.mongo;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
-import org.springframework.context.annotation.aspectj.EnableSpringConfigured;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 import com.serlvet.db.mongo.collection.UserInfo;
 import com.serlvet.db.mongo.repository.UserRepository;
 
-//@Configurable
+@Component
 public class UserService implements UserDetailsService {
-//    @Autowired
-//    UserRepository userRepository;
-////    public UserService(UserRepository userRepository) {
-////      this.userRepository = userRepository;
-////    }
-////    public void setUserRepository(UserRepository userRepository) {
-////        this.userRepository = userRepository;
-////    }
-//    public UserService() {
-//        System.out.println(userRepository);
-//    }
-//    @Override
-//    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-//        UserInfo user = userRepository.findByUsername(username);
-//        System.out.println(user);
-//        return new User(user.getUsername(), user.getPassword(), null);
-//    }
-
+    @Autowired
     UserRepository userRepository;
-    public UserService(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         UserInfo user = userRepository.findByUsername(username);
-        return new User(user.getUsername(), user.getPassword(), null);
+        if (user != null) {
+            List<GrantedAuthority> role = new ArrayList<>();
+            role.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+            return new User(user.getUsername(), user.getPassword(), role);
+        }
+        throw new UsernameNotFoundException("The user '" + username + "' not found.");
     }
 
 }
