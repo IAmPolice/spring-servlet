@@ -16,7 +16,6 @@ public class HomePage {
 
     @RequestMapping(method = GET)
     public String home(Model model) {
-        System.out.println("home");
         return "home";
         //return "redirect:/login";
     }

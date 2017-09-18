@@ -3,7 +3,7 @@
 <title>HTML Tutorial</title>
 <body>
 
-<h1>Home page</h1>
-<a href="order">order</a>
+<h1>end</h1>
+
 </body>
 </html>

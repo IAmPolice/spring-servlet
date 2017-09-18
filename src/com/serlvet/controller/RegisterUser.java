@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.serlvet.controller.reqdata.ReqUser;
 import com.serlvet.db.mongo.collection.UserInfo;
-import com.serlvet.db.mongo.repository.UserRepository;
 
 @Controller
 @RequestMapping("/register")
@@ -24,7 +23,7 @@ public class RegisterUser {
 //        this.userRepository = userRepository;
 //    }
     //UserRepository userRepository;
-    
+
     @RequestMapping(method = GET)
     public String getPage(Model model) {
         return "register";
@@ -33,7 +32,6 @@ public class RegisterUser {
     @RequestMapping(method = POST)
     public String registerUser(ReqUser reqUser, Model model) {
         mongoOps.save(new UserInfo(reqUser));
-        System.out.println("register");
         return "redirect:/login";
     }
 
