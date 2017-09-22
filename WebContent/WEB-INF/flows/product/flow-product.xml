@@ -6,7 +6,8 @@
 
     <!-- <var name="userInfo" class="com.serlvet.db.mongo.collection.UserInfo"/> -->
 
-    <view-state id="order1">
+    <view-state id="product1">
+        <secured attributes="ROLE_ADMIN" match="any" />
         <transition on="getUserInfo" to="getUserInfo" />
     </view-state>
 
@@ -16,7 +17,7 @@
         <transition to="order2" />
     </action-state>
 
-    <view-state id="order2">
+    <view-state id="product2">
         <transition on="end" to="end" />
     </view-state>
 

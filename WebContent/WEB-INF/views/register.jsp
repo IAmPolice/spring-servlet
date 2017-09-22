@@ -11,6 +11,7 @@
         <label>Username</label>: <input type="text" name="username" value="stone2"/><br/>
         <label>Password</label>: <input type="text" name="password" value="123456"/><br/>
         <label>Name</label>: <input type="text" name="name" value="stone2"/><br/>
+        <label>Role</label>: <input type="text" name="role" value="ROLE_ADMIN"/><br/>
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
         <input type="submit" value="Submit" />
       </form>

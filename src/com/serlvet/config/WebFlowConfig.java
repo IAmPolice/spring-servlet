@@ -11,6 +11,7 @@ import org.springframework.webflow.definition.registry.FlowDefinitionRegistry;
 import org.springframework.webflow.engine.builder.support.FlowBuilderServices;
 import org.springframework.webflow.executor.FlowExecutor;
 import org.springframework.webflow.mvc.builder.MvcViewFactoryCreator;
+import org.springframework.webflow.security.SecurityFlowExecutionListener;
 
 @Configuration
 @ComponentScan("com.serlvet.webflow.agent")
@@ -22,26 +23,28 @@ public class WebFlowConfig extends AbstractFlowConfiguration {
     @Bean
     public FlowDefinitionRegistry flowRegistry() {
         return getFlowDefinitionRegistryBuilder(flowBuilderServices())
-          .addFlowLocation("/WEB-INF/flows/order/flow-order.xml", "order")
-          .build();
+                //.addFlowLocation("/WEB-INF/flows/order/flow-order.xml", "order")
+                .addFlowLocation("/WEB-INF/flows/product/flow-product.xml", "product").build();
     }
 
     @Bean
     public FlowExecutor flowExecutor() {
-        return getFlowExecutorBuilder(flowRegistry()).build();
+        return getFlowExecutorBuilder(flowRegistry()).addFlowExecutionListener(new SecurityFlowExecutionListener())
+                .build();
+        //return getFlowExecutorBuilder(flowRegistry()).build();
     }
 
     @Bean
     public FlowBuilderServices flowBuilderServices() {
-        return getFlowBuilderServicesBuilder()
-          .setViewFactoryCreator(mvcViewFactoryCreator())
-          .setDevelopmentMode(true).build();
+        return getFlowBuilderServicesBuilder().setViewFactoryCreator(mvcViewFactoryCreator()).setDevelopmentMode(true)
+                .build();
     }
 
     @Bean
     public MvcViewFactoryCreator mvcViewFactoryCreator() {
         MvcViewFactoryCreator factoryCreator = new MvcViewFactoryCreator();
         factoryCreator.setViewResolvers(Collections.singletonList(this.webConfig.flowViewResolver()));
+        factoryCreator.setViewResolvers(Collections.singletonList(this.webConfig.flowProductView()));
         factoryCreator.setUseSpringBeanBinding(true);
         return factoryCreator;
     }

@@ -8,7 +8,7 @@
   <form:form>
     <input type="hidden" name="_flowExecutionKey" value="${flowExecutionKey}"/>
     <input type="text" name="username" value="stone1" /><br/>
-    <input type="submit"  name="_eventId_getUserInfo" value="Seach" />
+    <input type="submit" name="_eventId_getUserInfo" value="Seach" />
   </form:form>
 </body>
 </html>

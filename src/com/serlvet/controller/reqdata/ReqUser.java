@@ -14,6 +14,9 @@ public class ReqUser {
     @NotNull
     @Size(min=1, max=140)
     private String name;
+    @NotNull
+    @Size(min=1, max=140)
+    private String role;
 
     public void setUsername(String username) {
         this.username = username;
@@ -34,5 +37,12 @@ public class ReqUser {
     }
     public String getName() {
         return this.name;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+    public String getRole() {
+        return this.role;
     }
 }

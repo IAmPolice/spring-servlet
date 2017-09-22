@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xmlns:flow="http://www.springframework.org/schema/webflow-config"
+ xsi:schemaLocation="http://www.springframework.org/schema/webflow-config 
+   http://www.springframework.org/schema/webflow-config/spring-webflow-config-2.3.xsd
+   http://www.springframework.org/schema/beans 
+   http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+  <!-- Executes flows: the entry point into the Spring Web Flow system -->
+  <flow:flow-executor id="flowExecutor" />
+
+  <!-- The registry of executable flow definitions -->
+  <flow:flow-registry id="flowRegistry" base-path="/WEB-INF/flows">
+     <flow:flow-location-pattern value="/*.xml" />
+  </flow:flow-registry>
+
+  <!--Maps request paths to flows in the flowRegistry-->
+  <bean class="org.springframework.webflow.mvc.servlet.FlowHandlerMapping">
+    <property name="flowRegistry" ref="flowRegistry" />
+  </bean>
+
+  <!--
+   Dispatches requests mapped to flows to FlowHandler implementations
+  -->
+  <bean class="org.springframework.webflow.mvc.servlet.FlowHandlerAdapter">
+    <property name="flowExecutor" ref="flowExecutor" />
+  </bean>
+
+</beans>

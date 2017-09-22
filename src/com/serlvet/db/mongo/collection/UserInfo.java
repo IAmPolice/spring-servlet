@@ -23,6 +23,7 @@ public class UserInfo implements Serializable {
     String username;
     String password;
     String name;
+    String role;
 
     // 給Spring Security `UserDetails`使用的建構子
     public UserInfo() {
@@ -32,6 +33,7 @@ public class UserInfo implements Serializable {
         this.username = reqUser.getUsername();
         this.password = reqUser.getPassword();
         this.name = reqUser.getName();
+        this.role = reqUser.getRole();
     }
     public void setUsername(String username) {
         this.username = username;
@@ -52,5 +54,12 @@ public class UserInfo implements Serializable {
     }
     public String getName() {
         return this.name;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+    public String getRole() {
+        return this.role;
     }
 }
