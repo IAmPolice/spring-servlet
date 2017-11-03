@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/webflow 
+  http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
+
+    <view-state id="fuelMain" view="fuel/main">
+        <transition on="getData" to="displayData" />
+        <transition on="addInfo" to="addData" />
+        <transition on="modifyInfo" to="modifyData" />
+        <transition on="removeInfo" to="removeData" />
+    </view-state>
+
+    <subflow-state id="displayData" subflow="fuel/displayFuel">
+        <input name="car" value="requestParameters.car" />
+        <transition to="end" />
+    </subflow-state>
+
+    <subflow-state id="addData" subflow="fuel/addFuel">
+        <transition to="end" />
+    </subflow-state>
+
+    <!-- End state -->
+    <end-state id="end" view="externalRedirect:/home" />
+</flow>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/webflow 
+  http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
+
+    <input name="car" required="true" />
+
+    <action-state id="getFuel">
+        <evaluate result="flowScope.fuel" result-type="com.serlvet.db.mongo.collection.Fuel" expression="fuelAgent.getData(car)" />
+        <transition to="error"
+            on-exception="com.serlvet.exception.CarNotFoundException" />
+        <transition to="displayFuel" />
+    </action-state>
+    <!-- <action-state id="getFuel"> <evaluate result="flowScope.fuel" result-type="com.serlvet.db.mongo.collection.Fuels" 
+        expression="fuelAgent.getData(car)" /> <transition to="error" on-exception="com.serlvet.exception.CarNotFoundException"/> 
+        <transition to="displayFuel" /> </action-state> -->
+
+    <view-state id="displayFuel" view="fuel/displayFuel/displayFuel">
+        <transition on="ok" to="displayEnd" />
+    </view-state>
+    <view-state id="error" view="fuel/displayFuel/error">
+        <transition on="ok" to="displayEnd" />
+    </view-state>
+
+    <end-state id="displayEnd" />
+</flow>

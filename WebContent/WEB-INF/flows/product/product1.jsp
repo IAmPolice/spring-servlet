@@ -1,11 +1,12 @@
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
 <html>
 <title>HTML Tutorial</title>
 <body>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script
+        src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
-<script>
+    <script>
 $(document).ready(function(){
     $("button").click(function(){
         $.ajax({
@@ -17,7 +18,9 @@ $(document).ready(function(){
     });
 });
 </script>
-<div id="div1"><h2>Let jQuery AJAX Change This Text</h2></div>
-<button>Send</button>
+    <div id="div1">
+        <h2>Let jQuery AJAX Change This Text</h2>
+    </div>
+    <button>Send</button>
 </body>
 </html>

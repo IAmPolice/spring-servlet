@@ -1,35 +1,19 @@
 package com.serlvet.config;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.ImportResource;
-import org.springframework.http.MediaType;
-import org.springframework.http.converter.HttpMessageConverter;
-import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
-import org.springframework.web.servlet.HandlerAdapter;
 import org.springframework.web.servlet.ViewResolver;
-import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
-import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
-import org.springframework.webflow.mvc.servlet.FlowHandlerAdapter;
-import org.springframework.webflow.mvc.servlet.FlowHandlerMapping;
 
 @Configuration
 @EnableWebMvc
 @ComponentScan("com.serlvet.controller")
 //@ImportResource({"file:**/WEB-INF/flows/flows-config.xml"})
 public class WebConfig extends WebMvcConfigurerAdapter {
-
-    @Autowired
-    private WebFlowConfig webFlowConfig;
 
     @Bean
     public ViewResolver viewResolver() {
@@ -60,49 +44,39 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 //      templateResolver.setTemplateMode("HTML5");
 //      return templateResolver;
 //    }
-    @Override
-    public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
-      configurer.enable();
-    }
 
+    /**
+     * 默認交給serlvet讀取靜態資料
+     *
+     *                        ***********     ********************
+     *                        * servlet * --> * static resources *
+     *                        ***********     ********************
+     *                             ^
+     *                             |  (configureDefaultServletHandling method config)
+     *                             |
+     *                       **************
+     *   [http request]  ->  * dispatcher *
+     *   [http response] <-  *  servlet   *
+     *                       **************
+     */
 //    @Override
-//    public void addViewControllers(ViewControllerRegistry registry) {
-//      registry.addViewController("/login").setViewName("login");
+//    public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
+//      configurer.enable();
 //    }
+    // 
 
-    /** =========== Spring Webflow Config Start=========== **/
-    @Bean
-    public FlowHandlerMapping flowHandlerMapping() {
-        FlowHandlerMapping handlerMapping = new FlowHandlerMapping();
-        handlerMapping.setOrder(-1);
-        handlerMapping.setFlowRegistry(this.webFlowConfig.flowRegistry());
-        return handlerMapping;
+    /**
+     * 在spring mvc的dispatcher servlet加入靜態資料
+     *
+     *                       **************    ************
+     *   [http request]  ->  * dispatcher *    *   Path   *    ********************
+     *   [http response] <-  *            * -> * Resource * -> * static resources *
+     *                       *  servlet   *    * Resolver *    ********************
+     *                       **************    ************
+     */
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/**").addResourceLocations("/");
     }
-
-    @Bean
-    public FlowHandlerAdapter flowHandlerAdapter() {
-        FlowHandlerAdapter handlerAdapter = new FlowHandlerAdapter();
-        handlerAdapter.setFlowExecutor(this.webFlowConfig.flowExecutor());
-        handlerAdapter.setSaveOutputToFlashScopeOnRedirect(true);
-        return handlerAdapter;
-    }
-
-    // Config Spring Weflow of web page location in serlvet.
-    @Bean
-    public ViewResolver flowViewResolver() {
-      InternalResourceViewResolver resolver = new InternalResourceViewResolver();
-      resolver.setPrefix("/WEB-INF/flows/**/");
-      resolver.setSuffix(".jsp");
-      return resolver;
-    }
-
-    @Bean
-    public ViewResolver flowProductView() {
-      InternalResourceViewResolver resolver = new InternalResourceViewResolver();
-      resolver.setPrefix("/WEB-INF/flows/product/");
-      resolver.setSuffix(".jsp");
-      return resolver;
-    }
-    /** =========== Spring Webflow Config End=========== **/
 
 }

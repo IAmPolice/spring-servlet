@@ -1,16 +1,15 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
 <html>
-<title>HTML Tutorial</title>
+<title>Fuel Result</title>
 <body>
+    <h1>Not Found</h1>
 
-    <h1>order1</h1>
+    <a href="fuel">fuel</a>
     <form:form>
         <input type="hidden" name="_flowExecutionKey"
             value="${flowExecutionKey}" />
-        <input type="text" name="username" value="stone1" />
-        <br />
-        <input type="submit" name="_eventId_seachUserInfo" value="Seach" />
+        <input type="submit" name="_eventId_ok" value="ok" />
     </form:form>
 </body>
 </html>

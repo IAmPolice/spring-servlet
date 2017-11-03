@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/webflow 
+  http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
+
+    <view-state id="addFuel" view="fuel/addFuel/addFuel">
+        <transition on="add" to="storeFuel" />
+    </view-state>
+
+    <action-state id="storeFuel">
+        <evaluate
+            expression="fuelAgent.addData(requestParameters.username,
+                                                requestParameters.car,
+                                                requestParameters.km,
+                                                requestParameters.liter)" />
+        <transition on="success" to="success" />
+        <transition on="duplicateKey" to="duplicateKey" />
+        <transition on="error" to="error" />
+    </action-state>
+
+    <view-state id="success" view="fuel/addFuel/success">
+        <transition on="ok" to="addEnd" />
+    </view-state>
+    <view-state id="duplicateKey" view="fuel/addFuel/duplicateKey">
+        <transition on="ok" to="addEnd" />
+        <transition on="add" to="addFuel" />
+    </view-state>
+    <view-state id="error" view="fuel/addFuel/error">
+        <transition on="ok" to="addEnd" />
+        <transition on="add" to="addFuel" />
+    </view-state>
+
+    <end-state id="addEnd" />
+</flow>

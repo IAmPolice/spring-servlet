@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/webflow 
+  http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
+
+    <!-- <var name="userInfo" class="com.serlvet.db.mongo.collection.UserInfo"/> -->
+
+    <view-state id="product1" view="product/product1">
+        <secured attributes="ROLE_ADMIN" match="any" />
+        <transition on="getUserInfo" to="getUserInfo" />
+    </view-state>
+
+    <action-state id="getUserInfo">
+        <!-- <evaluate result="userInfo" expression="userAgent.getUserInfo(requestParameters.username)" 
+            /> -->
+        <evaluate result="requestScope.userInfo"
+            result-type="com.serlvet.db.mongo.collection.UserInfo"
+            expression="userAgent.getUserInfo(requestParameters.username)" />
+        <transition to="order2" />
+    </action-state>
+
+    <view-state id="product2" view="product/product2">
+        <transition on="end" to="end" />
+    </view-state>
+
+    <!-- End state -->
+    <end-state id="end" view="product/end" />
+</flow>
