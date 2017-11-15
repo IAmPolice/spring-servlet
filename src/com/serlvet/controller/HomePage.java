@@ -18,19 +18,18 @@ public class HomePage {
     @Autowired
     MongoOperations mongoOps;
 
-
     @Autowired
     MailAgent mailAgent;
-    
+
     @RequestMapping(method = GET)
     public String home(Model model) {
-        try {
-            mailAgent.sendMail();
-        } catch (MessagingException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+        // try {
+        // mailAgent.sendMail();
+        // } catch (MessagingException e) {
+        // // TODO Auto-generated catch block
+        // e.printStackTrace();
+        // }
         return "home";
-        //return "redirect:/login";
+        // return "redirect:/login";
     }
 }

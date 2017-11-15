@@ -1,4 +1,4 @@
-package com.serlvet.db.mongo.collection;
+package com.serlvet.db.mongo.schema;
 
 import java.io.Serializable;
 
@@ -12,9 +12,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import com.serlvet.controller.reqdata.ReqUser;
 
 @Document(collection = "users")
-@CompoundIndexes({
-    @CompoundIndex(def = "{'username' : 1, 'password': 1}")
-})
+@CompoundIndexes({ @CompoundIndex(def = "{'username' : 1, 'password': 1}") })
 public class UserInfo implements Serializable {
     @Id
     private String id;
@@ -35,9 +33,11 @@ public class UserInfo implements Serializable {
         this.name = reqUser.getName();
         this.role = reqUser.getRole();
     }
+
     public void setUsername(String username) {
         this.username = username;
     }
+
     public String getUsername() {
         return this.username;
     }
@@ -45,6 +45,7 @@ public class UserInfo implements Serializable {
     public void setPassword(String password) {
         this.password = password;
     }
+
     public String getPassword() {
         return this.password;
     }
@@ -52,6 +53,7 @@ public class UserInfo implements Serializable {
     public void setName(String name) {
         this.name = name;
     }
+
     public String getName() {
         return this.name;
     }
@@ -59,6 +61,7 @@ public class UserInfo implements Serializable {
     public void setRole(String role) {
         this.role = role;
     }
+
     public String getRole() {
         return this.role;
     }

@@ -22,8 +22,7 @@ public class WebFlowConfig extends AbstractFlowConfiguration {
 
     @Bean
     public FlowDefinitionRegistry flowRegistry() {
-        return getFlowDefinitionRegistryBuilder(flowBuilderServices())
-                .setBasePath("/WEB-INF/flows")
+        return getFlowDefinitionRegistryBuilder(flowBuilderServices()).setBasePath("/WEB-INF/flows")
                 .addFlowLocationPattern("/**/*-flow.xml").build();
     }
 
@@ -36,8 +35,9 @@ public class WebFlowConfig extends AbstractFlowConfiguration {
 
     @Bean
     public FlowBuilderServices flowBuilderServices() {
-//        return getFlowBuilderServicesBuilder().setViewFactoryCreator(mvcViewFactoryCreator()).setDevelopmentMode(true)
-//                .build();
+        // return
+        // getFlowBuilderServicesBuilder().setViewFactoryCreator(mvcViewFactoryCreator()).setDevelopmentMode(true)
+        // .build();
         return getFlowBuilderServicesBuilder().setViewFactoryCreator(mvcViewFactoryCreator()).build();
     }
 
@@ -45,15 +45,15 @@ public class WebFlowConfig extends AbstractFlowConfiguration {
     public MvcViewFactoryCreator mvcViewFactoryCreator() {
         MvcViewFactoryCreator factoryCreator = new MvcViewFactoryCreator();
         factoryCreator.setViewResolvers(Collections.singletonList(flowViewResolver()));
-        //factoryCreator.setUseSpringBeanBinding(true);
+        // factoryCreator.setUseSpringBeanBinding(true);
         return factoryCreator;
     }
 
     @Bean
     public FlowHandlerMapping flowHandlerMapping() {
         FlowHandlerMapping handlerMapping = new FlowHandlerMapping();
-        handlerMapping.setOrder(-1);        // Default value is Integer.MAX_VALUE, meaning that it's non-ordered.
-                                            // 所以必須設定`order`
+        handlerMapping.setOrder(-1); // Default value is Integer.MAX_VALUE, meaning that it's non-ordered.
+                                     // 所以必須設定`order`
         handlerMapping.setFlowRegistry(flowRegistry());
         return handlerMapping;
     }
@@ -62,7 +62,7 @@ public class WebFlowConfig extends AbstractFlowConfiguration {
     public FlowHandlerAdapter flowHandlerAdapter() {
         FlowHandlerAdapter handlerAdapter = new FlowHandlerAdapter();
         handlerAdapter.setFlowExecutor(flowExecutor());
-        //handlerAdapter.setSaveOutputToFlashScopeOnRedirect(true);
+        // handlerAdapter.setSaveOutputToFlashScopeOnRedirect(true);
         return handlerAdapter;
     }
 

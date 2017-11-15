@@ -6,7 +6,7 @@ public class WebInitializer extends AbstractAnnotationConfigDispatcherServletIni
 
     @Override
     protected Class<?>[] getRootConfigClasses() {
-        return new Class<?> []{ SecurityConfig.class, MongoConfig.class }; 
+        return new Class<?>[] { SecurityConfig.class, MongoConfig.class };
     }
 
     @Override
@@ -19,9 +19,10 @@ public class WebInitializer extends AbstractAnnotationConfigDispatcherServletIni
         return new String[] { "/" };
     }
 
-//    protected WebApplicationContext createServletApplicationContext() {
-//        ApplicationContext context = new FileSystemXmlApplicationContext("classpath:/WEB-INF/flows/config.xml");
-//        return (WebApplicationContext) context;
-//        
-//    }
+    // protected WebApplicationContext createServletApplicationContext() {
+    // ApplicationContext context = new
+    // FileSystemXmlApplicationContext("classpath:/WEB-INF/flows/config.xml");
+    // return (WebApplicationContext) context;
+    //
+    // }
 }

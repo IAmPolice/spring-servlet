@@ -13,8 +13,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
-import com.serlvet.db.mongo.collection.UserInfo;
 import com.serlvet.db.mongo.repository.UserRepository;
+import com.serlvet.db.mongo.schema.UserInfo;
 
 @Component
 public class UserService implements UserDetailsService {

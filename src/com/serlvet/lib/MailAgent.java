@@ -18,12 +18,11 @@ public class MailAgent {
         System.out.println("go");
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message, true);
-        //helper.setFrom("style80964@gmail.com");
-        //helper.setFrom("stone_shih@gemteks.com");
+        // helper.setFrom("style80964@gmail.com");
+        // helper.setFrom("stone_shih@gemteks.com");
         helper.setFrom("nancy_dai@acesolution.com.tw");
-        
-        
-        //helper.setTo("a_921246@hotmail.com");
+
+        // helper.setTo("a_921246@hotmail.com");
         helper.setTo("style80964@gmail.com");
         helper.setSubject("New spittle from ");
         helper.setText("!23");

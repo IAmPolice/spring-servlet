@@ -12,8 +12,7 @@
         </select>
         <input type="submit" name="_eventId_getData" value="display" />
         <input type="submit" name="_eventId_addInfo" value="add" />
-        <input type="submit" name="_eventId_modifyInfo" value="modify" />
-        <input type="submit" name="_eventId_removeInfoo" value="remove" />
+        <input type="submit" name="_eventId_removeInfo" value="remove" />
     </form:form>
 </body>
 </html>

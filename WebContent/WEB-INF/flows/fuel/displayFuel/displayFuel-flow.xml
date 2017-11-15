@@ -4,21 +4,44 @@
     xsi:schemaLocation="http://www.springframework.org/schema/webflow 
   http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
 
-    <input name="car" required="true" />
+    <!-- <input name="car" required="true" /> -->
+
+    <on-start>
+        <evaluate result="flowScope.cars" expression="fuelAgent.getCarByUsername()" />
+    </on-start>
 
     <action-state id="getFuel">
-        <evaluate result="flowScope.fuel" result-type="com.serlvet.db.mongo.collection.Fuel" expression="fuelAgent.getData(car)" />
-        <transition to="error"
-            on-exception="com.serlvet.exception.CarNotFoundException" />
+        <evaluate result="flowScope.fuel" expression="fuelAgent.getData()" />
+        <!-- <transition to="error" on-exception="com.serlvet.exception.CarNotFoundException" 
+            /> -->
         <transition to="displayFuel" />
     </action-state>
-    <!-- <action-state id="getFuel"> <evaluate result="flowScope.fuel" result-type="com.serlvet.db.mongo.collection.Fuels" 
-        expression="fuelAgent.getData(car)" /> <transition to="error" on-exception="com.serlvet.exception.CarNotFoundException"/> 
-        <transition to="displayFuel" /> </action-state> -->
 
     <view-state id="displayFuel" view="fuel/displayFuel/displayFuel">
         <transition on="ok" to="displayEnd" />
+        <transition on="display" to="displayData" />
+        <transition on="add" to="modifyData" />
+        <transition on="remove" to="removeData" />
     </view-state>
+
+    <action-state id="displayData">
+        <evaluate result="flowScope.fuel"
+            expression="fuelAgent.getDataByCar(requestParameters.car)" />
+        <transition to="displayFuel" />
+    </action-state>
+
+    <action-state id="modifyData">
+        <evaluate
+            expression="fuelAgent.modifyData(requestParameters.car, requestParameters.km, requestParameters.liter)" />
+        <transition to="displayData" />
+    </action-state>
+
+    <action-state id="removeData">
+        <evaluate
+            expression="fuelAgent.removeData(requestParameters.car, requestParameters.km)" />
+        <transition to="displayData" />
+    </action-state>
+
     <view-state id="error" view="fuel/displayFuel/error">
         <transition on="ok" to="displayEnd" />
     </view-state>

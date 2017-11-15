@@ -12,67 +12,61 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 @Configuration
 @EnableWebMvc
 @ComponentScan("com.serlvet.controller")
-//@ImportResource({"file:**/WEB-INF/flows/flows-config.xml"})
+// @ImportResource({"file:**/WEB-INF/flows/flows-config.xml"})
 public class WebConfig extends WebMvcConfigurerAdapter {
 
     @Bean
     public ViewResolver viewResolver() {
-      InternalResourceViewResolver resolver = new InternalResourceViewResolver();
-      resolver.setPrefix("/WEB-INF/views/");
-      resolver.setSuffix(".jsp");
-      return resolver;
+        InternalResourceViewResolver resolver = new InternalResourceViewResolver();
+        resolver.setPrefix("/WEB-INF/views/");
+        resolver.setSuffix(".jsp");
+        return resolver;
     }
-//    @Bean
-//    public ViewResolver viewResolver(SpringTemplateEngine templateEngine) {
-//      ThymeleafViewResolver viewResolver = new ThymeleafViewResolver();
-//      viewResolver.setTemplateEngine(templateEngine);
-//      return viewResolver;
-//    }
+    // @Bean
+    // public ViewResolver viewResolver(SpringTemplateEngine templateEngine) {
+    // ThymeleafViewResolver viewResolver = new ThymeleafViewResolver();
+    // viewResolver.setTemplateEngine(templateEngine);
+    // return viewResolver;
+    // }
 
-//    @Bean 
-//    public TemplateEngine templateEngine(TemplateResolver templateResolver){
-//        SpringTemplateEngine templateEngine = new SpringTemplateEngine();
-//        templateEngine.setTemplateResolver(templateResolver);
-//        return templateEngine;
-//    }
-//
-//    @Bean
-//    public TemplateResolver templateResolver() {
-//      TemplateResolver templateResolver = new ServletContextTemplateResolver();
-//      templateResolver.setPrefix("/WEB-INF/views/");
-//      templateResolver.setSuffix(".html");
-//      templateResolver.setTemplateMode("HTML5");
-//      return templateResolver;
-//    }
+    // @Bean
+    // public TemplateEngine templateEngine(TemplateResolver templateResolver){
+    // SpringTemplateEngine templateEngine = new SpringTemplateEngine();
+    // templateEngine.setTemplateResolver(templateResolver);
+    // return templateEngine;
+    // }
+    //
+    // @Bean
+    // public TemplateResolver templateResolver() {
+    // TemplateResolver templateResolver = new ServletContextTemplateResolver();
+    // templateResolver.setPrefix("/WEB-INF/views/");
+    // templateResolver.setSuffix(".html");
+    // templateResolver.setTemplateMode("HTML5");
+    // return templateResolver;
+    // }
 
     /**
      * 默認交給serlvet讀取靜態資料
      *
-     *                        ***********     ********************
-     *                        * servlet * --> * static resources *
-     *                        ***********     ********************
-     *                             ^
-     *                             |  (configureDefaultServletHandling method config)
-     *                             |
-     *                       **************
-     *   [http request]  ->  * dispatcher *
-     *   [http response] <-  *  servlet   *
-     *                       **************
+     * *********** ******************** * servlet * --> * static resources *
+     * *********** ******************** ^ | (configureDefaultServletHandling method
+     * config) | ************** [http request] -> * dispatcher * [http response] <-
+     * * servlet * **************
      */
-//    @Override
-//    public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
-//      configurer.enable();
-//    }
-    // 
+    // @Override
+    // public void configureDefaultServletHandling(DefaultServletHandlerConfigurer
+    // configurer) {
+    // configurer.enable();
+    // }
+    //
 
     /**
      * 在spring mvc的dispatcher servlet加入靜態資料
      *
-     *                       **************    ************
-     *   [http request]  ->  * dispatcher *    *   Path   *    ********************
-     *   [http response] <-  *            * -> * Resource * -> * static resources *
-     *                       *  servlet   *    * Resolver *    ********************
-     *                       **************    ************
+     * ************** ************ [http request] -> * dispatcher * * Path *
+     * ******************** [http response] <- * * -> * Resource * -> * static
+     * resources * * servlet * * Resolver * ******************** **************
+     * ************
      */
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {

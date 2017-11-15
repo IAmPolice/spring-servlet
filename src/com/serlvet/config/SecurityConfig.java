@@ -14,7 +14,7 @@ import com.serlvet.db.mongo.repository.UserRepository;
 
 @Configuration
 @EnableWebSecurity
-@ComponentScan(basePackages = {"com.serlvet.db.mongo"}, basePackageClasses = UserService.class )
+@ComponentScan(basePackages = { "com.serlvet.db.mongo" }, basePackageClasses = UserService.class)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     UserRepository userRepository;
@@ -23,20 +23,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
-            .authorizeRequests()
-                .antMatchers("/register", "/error").permitAll()
-                .antMatchers("/home").authenticated()
-                .antMatchers("/home").hasAnyAuthority("ROLE_ADMIN, ROLE_USER")
-                .anyRequest().authenticated()
-                .and()
-            .formLogin()
-            .and()
-            .logout()
-            .logoutSuccessUrl("/home");
-//            .logout()
-//              .logoutSuccessUrl("/login")
-//              .logoutUrl("/logout");
+        http.authorizeRequests().antMatchers("/register", "/error").permitAll().antMatchers("/home").authenticated()
+                .antMatchers("/home").hasAnyAuthority("ROLE_ADMIN, ROLE_USER").anyRequest().authenticated().and()
+                .formLogin().and().logout().logoutSuccessUrl("/home");
+        // .logout()
+        // .logoutSuccessUrl("/login")
+        // .logoutUrl("/logout");
     }
 
     @Override

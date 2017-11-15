@@ -10,19 +10,19 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.serlvet.controller.reqdata.ReqUser;
-import com.serlvet.db.mongo.collection.UserInfo;
+import com.serlvet.db.mongo.schema.UserInfo;
 
 @Controller
 @RequestMapping("/register")
 public class RegisterUser {
     @Autowired
     MongoOperations mongoOps;
-//    UserRepository userRepository;
-//    @Autowired
-//    public RegisterUser(UserRepository userRepository) {
-//        this.userRepository = userRepository;
-//    }
-    //UserRepository userRepository;
+    // UserRepository userRepository;
+    // @Autowired
+    // public RegisterUser(UserRepository userRepository) {
+    // this.userRepository = userRepository;
+    // }
+    // UserRepository userRepository;
 
     @RequestMapping(method = GET)
     public String getPage(Model model) {

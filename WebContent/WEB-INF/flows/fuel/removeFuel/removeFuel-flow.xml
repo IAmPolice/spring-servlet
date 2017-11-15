@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/webflow 
+  http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
+
+    <view-state id="removeFuel" view="fuel/removeFuel/removeFuel">
+        <transition on="remove" to="deleteFuel" />
+    </view-state>
+
+    <action-state id="deleteFuel">
+        <evaluate
+            expression="fuelAgent.deleteData(requestParameters.username,
+                                             requestParameters.car,
+                                             requestParameters.km)" />
+        <transition on="success" to="success" />
+        <transition on="error" to="error" />
+    </action-state>
+
+    <view-state id="success" view="fuel/removeFuel/success">
+        <transition on="ok" to="removeEnd" />
+    </view-state>
+    <view-state id="error" view="fuel/removeFuel/error">
+        <transition on="ok" to="removeEnd" />
+        <transition on="remove" to="removeFuel" />
+    </view-state>
+
+    <end-state id="removeEnd" />
+</flow>
