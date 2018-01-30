@@ -2,32 +2,36 @@ package com.serlvet.controller;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.io.UnsupportedEncodingException;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.serlvet.db.mongo.repository.UserRepository;
-import com.serlvet.db.mongo.schema.UserInfo;
+import com.serlvet.db.mongo.OrderTempl;
 
-@RestController
-@RequestMapping("/test")
+@Controller
+@RequestMapping("/order")
 public class OrderHandler {
     @Autowired
-    UserRepository userRepository;
+    private OrderTempl orderTempl;
 
-    @RequestMapping(method = GET)
-    public UserInfo home() {
-        return userRepository.findByUsername("stone1");
-        // public List<UserInfo> home() {
-        // List<UserInfo> a = Arrays.asList(userRepository.findByUsername("stone5"));
-        // return a;
-        // return "{ a:1}";
-        // return userRepository.findByUsername("stone1");
-        // return "redirect:/login";
+    @RequestMapping(value = "/menu/{orderId}", method = GET)
+    public @ResponseBody byte[] orderMenu(@PathVariable String orderId) {
+        return orderTempl.getOrderMenu(orderId);
+    }
+
+    @RequestMapping(value = "/test/{orderId}", method = GET)
+    public @ResponseBody String orderMenu1(@PathVariable String orderId) {
+        String a;
+        try {
+            a = new String (orderId.getBytes("iso-8859-1"), "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return "111";
     }
 }

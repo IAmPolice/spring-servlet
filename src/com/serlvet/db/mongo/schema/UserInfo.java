@@ -10,6 +10,7 @@ import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.serlvet.controller.reqdata.ReqUser;
+import com.serlvet.lib.GenerateId;
 
 @Document(collection = "users")
 @CompoundIndexes({ @CompoundIndex(def = "{'username' : 1, 'password': 1}") })
@@ -18,50 +19,52 @@ public class UserInfo implements Serializable {
     private String id;
 
     @Indexed(unique = true)
+    String userId;
     String username;
     String password;
     String name;
     String role;
 
-    // µπSpring Security `UserDetails`®œ•Œ™∫´ÿ∫c§l
+    // Áµ¶Spring Security `UserDetails`‰ΩøÁî®ÁöÑÂª∫ÊßãÂ≠ê
     public UserInfo() {
     }
 
     public UserInfo(ReqUser reqUser) {
+        this.userId = GenerateId.forUserId();
         this.username = reqUser.getUsername();
         this.password = reqUser.getPassword();
         this.name = reqUser.getName();
         this.role = reqUser.getRole();
     }
 
+
+    public String getUserId() {
+        return userId;
+    }
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
     public void setUsername(String username) {
         this.username = username;
     }
-
     public String getUsername() {
         return this.username;
     }
-
     public void setPassword(String password) {
         this.password = password;
     }
-
     public String getPassword() {
         return this.password;
     }
-
     public void setName(String name) {
         this.name = name;
     }
-
     public String getName() {
         return this.name;
     }
-
     public void setRole(String role) {
         this.role = role;
     }
-
     public String getRole() {
         return this.role;
     }

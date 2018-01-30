@@ -15,7 +15,7 @@
         <!-- <evaluate result="userInfo" expression="userAgent.getUserInfo(requestParameters.username)" 
             /> -->
         <evaluate result="requestScope.userInfo"
-            result-type="com.serlvet.db.mongo.collection.UserInfo"
+            result-type="com.serlvet.db.mongo.schema.UserInfo"
             expression="userAgent.getUserInfo(requestParameters.username)" />
         <transition to="order2" />
     </action-state>

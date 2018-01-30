@@ -19,7 +19,7 @@ public interface UserRepository extends MongoRepository<UserInfo, String> {
 
     List<UserInfo> findDistinctUsersByUsernameAndRole(String username, String role);
 
-    // ©¿²¤°Ñ¼Æ¤j¤p¼g
+    // å¿½ç•¥åƒæ•¸å¤§å°å¯«
     List<UserInfo> findByRoleIgnoreCase(String role);
 
     List<UserInfo> findByRole(String role);

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/webflow 
+  http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
+
+    <!-- <input name="userInfo" required="true"/> -->
+
+    <action-state id="detailOrder">
+        <evaluate result="flowScope.orderDetail"
+            result-type="com.serlvet.db.mongo.schema.Order"
+            expression="orderAgent.readOrder(requestParameters.orderId)" />
+        <transition to="diplayOrder" />
+    </action-state>
+
+    <view-state id="diplayOrder" view="order/diplayOrder/diplayOrder">
+        <transition on="add" to="addPurchaser" />
+        <transition on="modify" to="addPurchaser" />
+        <transition on="remove" to="removePurchaser" />
+        <transition on="ok" to="end" />
+    </view-state>
+
+    <action-state id="addPurchaser">
+        <evaluate
+            expression="orderAgent.addPurchaser(requestParameters.orderId,
+                                                requestParameters.item,
+                                                requestParameters.price)" />
+        <transition on="success" to="detailOrder" />
+        <transition on="error" to="error" />
+    </action-state>
+
+    <action-state id="removePurchaser">
+        <evaluate
+            expression="orderAgent.removePurchaser(requestParameters.orderId,
+                                                requestParameters.item)" />
+        <transition on="success" to="detailOrder" />
+        <transition on="error" to="error" />
+    </action-state>
+
+    <view-state id="error" view="order/diplayOrder/error">
+        <transition on="ok" to="diplayOrder" />
+    </view-state>
+
+    <end-state id="end" />
+</flow>

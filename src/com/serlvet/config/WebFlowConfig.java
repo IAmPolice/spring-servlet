@@ -1,4 +1,4 @@
-package com.serlvet.config;
+ï»¿package com.serlvet.config;
 
 import java.util.Collections;
 
@@ -53,7 +53,7 @@ public class WebFlowConfig extends AbstractFlowConfiguration {
     public FlowHandlerMapping flowHandlerMapping() {
         FlowHandlerMapping handlerMapping = new FlowHandlerMapping();
         handlerMapping.setOrder(-1); // Default value is Integer.MAX_VALUE, meaning that it's non-ordered.
-                                     // ©Ò¥H¥²¶·³]©w`order`
+                                     // æ‰€ä»¥å¿…é ˆè¨­å®š`order`
         handlerMapping.setFlowRegistry(flowRegistry());
         return handlerMapping;
     }

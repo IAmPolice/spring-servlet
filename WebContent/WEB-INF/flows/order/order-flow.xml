@@ -4,31 +4,27 @@
     xsi:schemaLocation="http://www.springframework.org/schema/webflow 
   http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
 
-    <!-- <var name="userInfo" class="com.serlvet.db.mongo.collection.UserInfo"/> -->
-
-    <view-state id="order1" view="order/order1">
-        <transition on="seachUserInfo" to="seachUserInfo" />
+    <view-state id="orderMain" view="order/main">
+        <on-entry>
+            <evaluate result="conversationScope.userInfo" expression="userAgent.getUserInfo()" />
+            <evaluate result="viewScope.orders" expression="orderAgent.readAllOrder()" />
+        </on-entry>
+        <transition on="create" to="createOrder" />
+        <transition on="diplay" to="diplayOrder" />
+        <transition on="modify" to="modifyOrder" />
+        <transition on="close" to="closeOrder" />
+        <transition on="delete" to="deleteOrder" />
     </view-state>
 
-    <action-state id="seachUserInfo">
-        <!-- <evaluate result="userInfo" expression="userAgent.getUserInfo(requestParameters.username)" 
-            /> -->
-        <evaluate result="flowScope.userInfo1"
-            result-type="com.serlvet.db.mongo.collection.UserInfo"
-            expression="userAgent.seachUserInfo(requestParameters.username)" />
-        <transition to="order2" />
-    </action-state>
-
-    <view-state id="order2" view="order/order2">
-        <transition on="end" to="getUserInfo" />
-    </view-state>
-
-    <action-state id="getUserInfo">
-        <evaluate result="requestScope.userInfo"
-            result-type="com.serlvet.db.mongo.collection.UserInfo"
-            expression="userAgent.getUserInfo()" />
+    <subflow-state id="createOrder" subflow="order/createOrder">
         <transition to="end" />
-    </action-state>
+    </subflow-state>
+
+    <subflow-state id="diplayOrder" subflow="order/diplayOrder">
+        <!-- <input name="userInfo" value="userInfo"/> -->
+        <transition to="orderMain" />
+    </subflow-state>
+
 
     <!-- End state -->
     <end-state id="end" view="order/end" />

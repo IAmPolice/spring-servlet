@@ -3,6 +3,8 @@ package com.serlvet.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.multipart.MultipartResolver;
+import org.springframework.web.multipart.support.StandardServletMultipartResolver;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -22,6 +24,23 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         resolver.setSuffix(".jsp");
         return resolver;
     }
+
+    @Bean
+    public MultipartResolver multipartResolver() {
+        return new StandardServletMultipartResolver();
+    }
+//    @Bean
+//    public CharacterEncodingFilter characterEncodingFilter() {
+//        CharacterEncodingFilter filter = new CharacterEncodingFilter();
+//        filter.setEncoding("UTF-8");
+//        filter.setForceEncoding(true);
+//        return filter;
+//    }
+//
+//    public StandardServletMultipartResolver resolver() {  
+//        return new StandardServletMultipartResolver();  
+//    }
+
     // @Bean
     // public ViewResolver viewResolver(SpringTemplateEngine templateEngine) {
     // ThymeleafViewResolver viewResolver = new ThymeleafViewResolver();
@@ -46,13 +65,19 @@ public class WebConfig extends WebMvcConfigurerAdapter {
     // }
 
     /**
-     * Àq»{¥æµ¹serlvetÅª¨úÀRºA¸ê®Æ
-     *
-     * *********** ******************** * servlet * --> * static resources *
-     * *********** ******************** ^ | (configureDefaultServletHandling method
-     * config) | ************** [http request] -> * dispatcher * [http response] <-
-     * * servlet * **************
-     */
+    * é»˜èªäº¤çµ¦serlvetè®€å–éœæ…‹è³‡æ–™
+    *
+    *                        ***********     ********************
+    *                        * servlet * --> * static resources *
+    *                        ***********     ********************
+    *                             ^
+    *                             |  (configureDefaultServletHandling method config)
+    *                             |
+    *                       **************
+    *   [http request]  ->  * dispatcher *
+    *   [http response] <-  *  servlet   *
+    *                       **************
+    */
     // @Override
     // public void configureDefaultServletHandling(DefaultServletHandlerConfigurer
     // configurer) {
@@ -61,13 +86,14 @@ public class WebConfig extends WebMvcConfigurerAdapter {
     //
 
     /**
-     * ¦bspring mvcªºdispatcher servlet¥[¤JÀRºA¸ê®Æ
-     *
-     * ************** ************ [http request] -> * dispatcher * * Path *
-     * ******************** [http response] <- * * -> * Resource * -> * static
-     * resources * * servlet * * Resolver * ******************** **************
-     * ************
-     */
+    * åœ¨spring mvcçš„dispatcher servletåŠ å…¥éœæ…‹è³‡æ–™
+    *
+    *                       **************    ************
+    *   [http request]  ->  * dispatcher *    *   Path   *    ********************
+    *   [http response] <-  *            * -> * Resource * -> * static resources *
+    *                       *  servlet   *    * Resolver *    ********************
+    *                       **************    ************
+    */
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/**").addResourceLocations("/");
