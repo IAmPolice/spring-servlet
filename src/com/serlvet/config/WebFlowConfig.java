@@ -1,4 +1,4 @@
-﻿package com.serlvet.config;
+package com.serlvet.config;
 
 import java.util.Collections;
 
