@@ -32,7 +32,7 @@ public class MongoConfig extends AbstractMongoConfiguration {
 
     @Override
     public Mongo mongo() throws Exception {
-        String ip = "10.5.161.135";
+        String ip = "10.5.161.15";
         //String ip = "localhost";
         System.out.println(ip);
         return new MongoClient(ip, new MongoClientOptions.Builder().connectTimeout(60000).build());
